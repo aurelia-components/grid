@@ -1,0 +1,14 @@
+
+<template>
+  <ul class="pagination">
+    <li if.bind="showFirstLastButtons" class="page-item ${ prevDisabled ? 'disabled' : '' }"><a href="" click.delegate="first()" aria-label="First" class="page-link"><span aria-hidden="true">First</span></a></li>
+    <li if.bind="showJumpButtons" class="page-item ${ prevDisabled ? 'disabled' : '' }"><a href="" click.delegate="prevJump()" aria-label="Next" class="page-link"><span aria-hidden="true">&#8230;</span></a></li>
+    <li class="page-item ${ prevDisabled ? 'disabled' : '' }"><a href="" click.delegate="prev()" aria-label="Previous" class="page-link"><span aria-hidden="true">&laquo;</span></a></li>
+    <li repeat.for="curPage of pages" class="page-item ${ curPage == $parent.page ? 'active' : '' }">
+      <!-- This span is an IE bug fix - if a &raquo; or many other chars are used before an interpolation for some reason that interpolation fails, following ones are fine (this is for the same property). Adding an invisible span with an interpolate in it fixes the issue--><span style="display:none">${curPage}</span><a href="" click.delegate="$parent.changePage(curPage)" class="page-link">${curPage}</a>
+    </li>
+    <li class="page-item ${ nextDisabled ? 'disabled' : '' }"><a href="" click.delegate="next()" aria-label="Next" class="page-link"><span aria-hidden="true">&raquo;</span></a></li>
+    <li if.bind="showJumpButtons" class="page-item ${ nextDisabled ? 'disabled' : '' }"><a href="" click.delegate="nextJump()" aria-label="Next" class="page-link"><span aria-hidden="true">&#8230;</span></a></li>
+    <li if.bind="showFirstLastButtons" class="page-item ${ nextDisabled ? 'disabled' : '' }"><a href="" click.delegate="last()" aria-label="Last" class="page-link"><span aria-hidden="true">Last</span></a></li>
+  </ul>
+</template>

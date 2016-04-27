@@ -1,0 +1,71 @@
+
+<template>
+  <require from="../pager/pager"></require>
+  <require from="./aurelia-bs-grid.css"></require>
+  <div>
+    <div class="grid-container">
+      <!-- Header table-->
+      <table class="table table-hover table-striped grid-header-table">
+        <thead>
+          <tr role="button" if.bind="showColumnHeaders" style="word-break: break-all;">
+            <th repeat.for="$column of columns" class="${ $column.class !== '' ? $column.class : '' }"><a if.bind="$column.sort === true" click.trigger="$column.changeDirectionSort()">
+                 
+                ${ $column.heading | t}</a><span if.bind="$column.sort === false">${ $column.heading | t}</span>
+              <svg if.bind="$column.sortDirection === 'desc'" height="8" width="10">
+                <polygon points="0,0 8,0 4,8" class="grid-sort-arrow"></polygon>
+              </svg>
+              <svg if.bind="$column.sortDirection === 'asc'" height="8" width="10">
+                <polygon points="0,8 8,8 4,0" class="grid-sort-arrow"></polygon>
+              </svg>
+            </th>
+          </tr>
+          <tr if.bind="showFilters" class="grid-column-filters">
+            <th repeat.for="$column of columns" class="${ $column.class !== '' ? $column.class : '' }">
+              <div if.bind="$column.filter === 'input'">
+                <input value.bind="$column.filterValue" placeholder="filter..." input.delegate="$column.updateFilter()" class="form-control"/>
+              </div>
+              <div if.bind="$column.filter === 'boolean'" class="filter-boolean">
+                <base-button on-click.call="$column.trueFilterToggle()" icon.bind="$column.trueFilter ? 'fa-check-circle-o' : 'fa-circle-o'"></base-button>
+                <base-button on-click.call="$column.falseFilterToggle()" icon.bind="$column.falseFilter ? 'fa-times-circle-o' : 'fa-circle-o'"></base-button>
+              </div>
+              <div if.bind="$column.filter === 'date-from-to'" class="filter-datetime">
+                <datepicker value.bind="$column.filterValueFrom" change.trigger="$column.updateFilter()" icon.bind="false"></datepicker>
+                <datepicker value.bind="$column.filterValueTo" change.trigger="$column.updateFilter()" icon.bind="false"></datepicker>
+              </div>
+              <div if.bind="$column.filter === 'select'" class="filter-select">
+                <select value.bind="$column.filterValue" change.trigger="$column.updateFilter()" class="form-control">
+                  <option repeat.for="item of $column.items" model.bind="item.id">${item.name}</option>
+                </select>
+              </div>
+            </th>
+          </tr>
+        </thead>
+      </table>
+      <!-- Content table-->
+      <div class="grid-content-container">
+        <table show.bind="!showNoRowsMessage || (showNoRowsMessage &amp;&amp; storeManager.getDataStore().count &gt; 0)" class="table table-hover table-striped table-sm selectable">
+          <tbody>
+            <tr role="button" click.trigger="rowClicked($item)" class.bind="$item._selected &amp;&amp; selection ? 'table-info': ''"></tr>
+          </tbody>
+        </table>
+        <!-- No rows message-->
+        <div show.bind="showNoRowsMessage &amp;&amp; storeManager.getDataStore().count === 0" class="alert alert-warning">${ noRowsMessage | t }</div>
+      </div>
+      <div if.bind="loading" class="grid-overlay"></div>
+      <div if.bind="loading" class="progress grid-progress-indicator">
+        <div role="progressbar" class="progress-bar progress-bar-striped active"><span>${ loadingMessage }</span></div>
+      </div>
+      <!-- Footer div-->
+      <div if.bind="pageable" class="grid-footer-container">
+        <pager num-to-show.bind="pagerSize" pager.ref="pager" on-page-changed.call="pageChanged($event)" show-first-last-buttons.bind="showFirstLastButtons" show-jump-buttons.bind="showJumpButtons"></pager>
+        <div if.bind="showPageSizeBox" class="form-inline">
+          <div class="form-control-group">
+            <select value.bind="pageSize" class="form-control">
+              <option value.bind="size" repeat.for="size of pageSizes">${ size === '*' ? 'All' : size }</option>
+            </select><span>&nbsp; items per page</span>
+          </div>
+        </div><span if.bind="showPagingSummary" class="grid-summary">Showing ${ storeManager.getDataStore().firstVisibleItem } - ${ storeManager.getDataStore().lastVisibleItem } of ${ storeManager.getDataStore().count } items</span>
+      </div>
+    </div>
+  </div>
+</template>

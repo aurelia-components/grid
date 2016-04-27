@@ -1,0 +1,60 @@
+template
+  require(from="../pager/pager")
+  require(from="./aurelia-bs-grid.css")
+
+  div
+    div.grid-container
+      // Header table
+      table.table.table-hover.table-striped.grid-header-table
+        thead
+          tr(role="button", if.bind="showColumnHeaders", style="word-break: break-all;")
+            th(repeat.for="$column of columns" class="${ $column.class !== '' ? $column.class : '' }")
+              a(if.bind="$column.sort === true", click.trigger="$column.changeDirectionSort()") 
+                | ${ $column.heading | t}
+              span(if.bind="$column.sort === false") ${ $column.heading | t}
+              svg(if.bind="$column.sortDirection === 'desc'" height="8" width="10")
+                polygon(class="grid-sort-arrow" points="0,0 8,0 4,8")
+              svg(if.bind="$column.sortDirection === 'asc'" height="8" width="10")
+                polygon(class="grid-sort-arrow" points="0,8 8,8 4,0")
+
+          tr.grid-column-filters(if.bind="showFilters")
+            th(repeat.for="$column of columns", class="${ $column.class !== '' ? $column.class : '' }")
+
+              div(if.bind="$column.filter === 'input'")
+                input.form-control(value.bind="$column.filterValue", placeholder="filter...", input.delegate="$column.updateFilter()")
+
+              div.filter-boolean(if.bind="$column.filter === 'boolean'")
+                base-button(on-click.call="$column.trueFilterToggle()", icon.bind="$column.trueFilter ? 'fa-check-circle-o' : 'fa-circle-o'")
+                base-button(on-click.call="$column.falseFilterToggle()", icon.bind="$column.falseFilter ? 'fa-times-circle-o' : 'fa-circle-o'")
+
+              div.filter-datetime(if.bind="$column.filter === 'date-from-to'")
+                datepicker(value.bind="$column.filterValueFrom", change.trigger="$column.updateFilter()", icon.bind="false")
+                datepicker(value.bind="$column.filterValueTo", change.trigger="$column.updateFilter()", icon.bind="false")
+
+              div.filter-select(if.bind="$column.filter === 'select'")
+                select.form-control(value.bind="$column.filterValue", change.trigger="$column.updateFilter()")
+                  option(repeat.for="item of $column.items", model.bind="item.id") ${item.name}
+
+
+      // Content table
+      div.grid-content-container
+        table.table.table-hover.table-striped.table-sm.selectable(show.bind="!showNoRowsMessage || (showNoRowsMessage && storeManager.getDataStore().count > 0)")
+          tbody
+            tr(role="button", click.trigger = "rowClicked($item)", class.bind="$item._selected && selection ? 'table-info': ''")
+        // No rows message
+        div.alert.alert-warning(show.bind="showNoRowsMessage && storeManager.getDataStore().count === 0") ${ noRowsMessage | t }
+
+      div.grid-overlay(if.bind="loading")
+      div.progress.grid-progress-indicator(if.bind="loading")
+        div.progress-bar.progress-bar-striped.active(role="progressbar")
+          span ${ loadingMessage }
+
+      // Footer div
+      div.grid-footer-container(if.bind="pageable")
+        pager(num-to-show.bind="pagerSize", pager.ref="pager", on-page-changed.call="pageChanged($event)", show-first-last-buttons.bind="showFirstLastButtons", show-jump-buttons.bind="showJumpButtons")
+        div.form-inline(if.bind="showPageSizeBox")
+          div.form-control-group
+            select.form-control(value.bind="pageSize")
+              option(value.bind="size", repeat.for="size of pageSizes") ${ size === '*' ? 'All' : size }
+            span &nbsp; items per page
+        span.grid-summary(if.bind="showPagingSummary") Showing ${ storeManager.getDataStore().firstVisibleItem } - ${ storeManager.getDataStore().lastVisibleItem } of ${ storeManager.getDataStore().count } items
