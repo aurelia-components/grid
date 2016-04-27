@@ -4,7 +4,7 @@ import {customElement, TaskQueue, useView, bindable, inject, BindingEngine,
 import {processUserTemplate} from './proccess-user-template';
 import {ColumnDefinitionFactory} from '../column/column-definition-factory';
 import {StoreManager} from '../store/store-manager';
-import {customElementHelper} from 'utils';
+import {customElementHelper} from '../utils/custom-element-helper';
 
 @customElement('grid')
 @processContent(processUserTemplate)

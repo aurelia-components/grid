@@ -1,4 +1,4 @@
-define(['exports', 'aurelia-framework', './proccess-user-template', '../column/column-definition-factory', '../store/store-manager', 'utils'], function (exports, _aureliaFramework, _proccessUserTemplate, _columnDefinitionFactory, _storeManager, _utils) {
+define(['exports', 'aurelia-framework', './proccess-user-template', '../column/column-definition-factory', '../store/store-manager', '../utils/custom-element-helper'], function (exports, _aureliaFramework, _proccessUserTemplate, _columnDefinitionFactory, _storeManager, _customElementHelper) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
@@ -382,7 +382,7 @@ define(['exports', 'aurelia-framework', './proccess-user-template', '../column/c
       this.lastSelectedItem = $item;
 
       if (noEventNeeded !== true) {
-        _utils.customElementHelper.dispatchEvent(this.element, 'select-grid-row', {
+        _customElementHelper.customElementHelper.dispatchEvent(this.element, 'select-grid-row', {
           $item: $item
         });
       }
@@ -396,7 +396,7 @@ define(['exports', 'aurelia-framework', './proccess-user-template', '../column/c
       $item._selected = false;
 
       if (noEventNeeded !== true && this.isWithDeselect) {
-        _utils.customElementHelper.dispatchEvent(this.element, 'deselect-grid-row', {
+        _customElementHelper.customElementHelper.dispatchEvent(this.element, 'deselect-grid-row', {
           $item: $item
         });
       }

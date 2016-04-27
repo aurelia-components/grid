@@ -1,6 +1,6 @@
 'use strict';
 
-System.register(['aurelia-framework', './proccess-user-template', '../column/column-definition-factory', '../store/store-manager', 'utils'], function (_export, _context) {
+System.register(['aurelia-framework', './proccess-user-template', '../column/column-definition-factory', '../store/store-manager', '../utils/custom-element-helper'], function (_export, _context) {
   var customElement, TaskQueue, useView, bindable, inject, BindingEngine, processContent, TargetInstruction, ViewCompiler, ViewSlot, ViewResources, Container, bindingMode, processUserTemplate, ColumnDefinitionFactory, StoreManager, customElementHelper, _dec, _dec2, _dec3, _dec4, _class, _desc, _value, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _descriptor6, _descriptor7, _descriptor8, _descriptor9, _descriptor10, _descriptor11, _descriptor12, _descriptor13, _descriptor14, _descriptor15, _descriptor16, _descriptor17, _descriptor18, _descriptor19, _descriptor20, _descriptor21, _descriptor22, _descriptor23, _descriptor24, Grid;
 
   function _initDefineProp(target, property, descriptor, context) {
@@ -73,8 +73,8 @@ System.register(['aurelia-framework', './proccess-user-template', '../column/col
       ColumnDefinitionFactory = _columnColumnDefinitionFactory.ColumnDefinitionFactory;
     }, function (_storeStoreManager) {
       StoreManager = _storeStoreManager.StoreManager;
-    }, function (_utils) {
-      customElementHelper = _utils.customElementHelper;
+    }, function (_utilsCustomElementHelper) {
+      customElementHelper = _utilsCustomElementHelper.customElementHelper;
     }],
     execute: function () {
       _export('Grid', Grid = (_dec = customElement('grid'), _dec2 = processContent(processUserTemplate), _dec3 = inject(Element, ViewCompiler, ViewResources, Container, TargetInstruction, BindingEngine, TaskQueue), _dec4 = bindable({ defaultBindingMode: bindingMode.twoWay }), _dec(_class = _dec2(_class = _dec3(_class = (_class2 = function () {

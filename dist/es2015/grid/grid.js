@@ -47,7 +47,7 @@ import { customElement, TaskQueue, useView, bindable, inject, BindingEngine, pro
 import { processUserTemplate } from './proccess-user-template';
 import { ColumnDefinitionFactory } from '../column/column-definition-factory';
 import { StoreManager } from '../store/store-manager';
-import { customElementHelper } from 'utils';
+import { customElementHelper } from '../utils/custom-element-helper';
 
 export let Grid = (_dec = customElement('grid'), _dec2 = processContent(processUserTemplate), _dec3 = inject(Element, ViewCompiler, ViewResources, Container, TargetInstruction, BindingEngine, TaskQueue), _dec4 = bindable({ defaultBindingMode: bindingMode.twoWay }), _dec(_class = _dec2(_class = _dec3(_class = (_class2 = class Grid {
 

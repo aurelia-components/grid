@@ -15,7 +15,7 @@ var _columnDefinitionFactory = require('../column/column-definition-factory');
 
 var _storeManager = require('../store/store-manager');
 
-var _utils = require('utils');
+var _customElementHelper = require('../utils/custom-element-helper');
 
 function _initDefineProp(target, property, descriptor, context) {
   if (!descriptor) return;
@@ -387,7 +387,7 @@ var Grid = exports.Grid = (_dec = (0, _aureliaFramework.customElement)('grid'), 
     this.lastSelectedItem = $item;
 
     if (noEventNeeded !== true) {
-      _utils.customElementHelper.dispatchEvent(this.element, 'select-grid-row', {
+      _customElementHelper.customElementHelper.dispatchEvent(this.element, 'select-grid-row', {
         $item: $item
       });
     }
@@ -401,7 +401,7 @@ var Grid = exports.Grid = (_dec = (0, _aureliaFramework.customElement)('grid'), 
     $item._selected = false;
 
     if (noEventNeeded !== true && this.isWithDeselect) {
-      _utils.customElementHelper.dispatchEvent(this.element, 'deselect-grid-row', {
+      _customElementHelper.customElementHelper.dispatchEvent(this.element, 'deselect-grid-row', {
         $item: $item
       });
     }
