@@ -64,6 +64,7 @@
       "dist": "dist/amd"
     },
     "dependencies": {
+      "aurelia-i18n": "^0.5.2",
       "moment": "^2.13.0"
     },
     "devDependencies": {
