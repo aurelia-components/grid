@@ -10,7 +10,7 @@
           <tr role="button" if.bind="showColumnHeaders" style="word-break: break-all;">
             <th repeat.for="$column of columns" class="${ $column.class !== '' ? $column.class : '' }"><a if.bind="$column.sort === true" click.trigger="$column.changeDirectionSort()">
                  
-                ${ $column.heading | t}</a><span if.bind="$column.sort === false">${ $column.heading | t}</span>
+                ${ $column.heading }</a><span if.bind="$column.sort === false">${ $column.heading }</span>
               <svg if.bind="$column.sortDirection === 'desc'" height="8" width="10">
                 <polygon points="0,0 8,0 4,8" class="grid-sort-arrow"></polygon>
               </svg>
@@ -49,7 +49,7 @@
           </tbody>
         </table>
         <!-- No rows message-->
-        <div show.bind="showNoRowsMessage &amp;&amp; storeManager.getDataStore().count === 0" class="alert alert-warning">${ noRowsMessage | t }</div>
+        <div show.bind="showNoRowsMessage &amp;&amp; storeManager.getDataStore().count === 0" class="alert alert-warning">${ noRowsMessage }</div>
       </div>
       <div if.bind="loading" class="grid-overlay"></div>
       <div if.bind="loading" class="progress grid-progress-indicator">

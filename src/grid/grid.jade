@@ -10,8 +10,8 @@ template
           tr(role="button", if.bind="showColumnHeaders", style="word-break: break-all;")
             th(repeat.for="$column of columns" class="${ $column.class !== '' ? $column.class : '' }")
               a(if.bind="$column.sort === true", click.trigger="$column.changeDirectionSort()") 
-                | ${ $column.heading | t}
-              span(if.bind="$column.sort === false") ${ $column.heading | t}
+                | ${ $column.heading }
+              span(if.bind="$column.sort === false") ${ $column.heading }
               svg(if.bind="$column.sortDirection === 'desc'" height="8" width="10")
                 polygon(class="grid-sort-arrow" points="0,0 8,0 4,8")
               svg(if.bind="$column.sortDirection === 'asc'" height="8" width="10")
@@ -42,7 +42,7 @@ template
           tbody
             tr(role="button", click.trigger = "rowClicked($item)", class.bind="$item._selected && selection ? 'table-info': ''")
         // No rows message
-        div.alert.alert-warning(show.bind="showNoRowsMessage && storeManager.getDataStore().count === 0") ${ noRowsMessage | t }
+        div.alert.alert-warning(show.bind="showNoRowsMessage && storeManager.getDataStore().count === 0") ${ noRowsMessage }
 
       div.grid-overlay(if.bind="loading")
       div.progress.grid-progress-indicator(if.bind="loading")
