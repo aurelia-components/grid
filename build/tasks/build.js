@@ -49,19 +49,10 @@ gulp.task('build-system', function () {
 gulp.task('build', function(callback) {
   return runSequence(
     'clean',
-	'compile-jade-index',
 	'compile-jade',
     ['build-html', 'build-css', 'build-es2015', 'build-commonjs', 'build-amd', 'build-system'],
     callback
   );
-});
-
-gulp.task('compile-jade-index', function () {
-  return gulp.src('index.jade')
-    .pipe(jade({
-      pretty: true
-    }))
-    .pipe(gulp.dest('.'));
 });
 
 gulp.task('compile-jade', function () {
